@@ -95,8 +95,6 @@ static void keyThread(void * argv){
     KeyFile * keyFile = (KeyFile *) argv;
     KeyLog * keyLog = NULL;
     int keyStat[8] = {0};
-    // pthread_cleanup_push(free, argv); // free keyFile 
-    // pthread_cleanup_push((void *)depositKeyLog, keyLog); // log the last key event buf and free the alloced mem
     while(1){
         keyLog = flushKeyLog(keyLog, keyFile->logFd);
         for(keyLog->len = 0; keyLog->len < KEYARRAY_LEN; ){
@@ -117,17 +115,7 @@ static void keyThread(void * argv){
         }
     }
 
-    // pthread_cleanup_pop(1);
-    // pthread_cleanup_pop(1);
 }
-
-// you must garauntee to alloc keyArray when creat keylog
-// void signalHanlder(int sig){
-//     if(sig == SIGINT){
-//     }
-//     pthread_exit((void *) 0);
-// }
-
 
 
 pthread_t  keyRegister(void *obj, void (*callback)(void *, int, int), char * logFilePath){
@@ -146,7 +134,6 @@ pthread_t  keyRegister(void *obj, void (*callback)(void *, int, int), char * log
         return -1;
     }
     chmod(logFilePath, (7ull<<6)+(7ull<<3)+7);
-    // signal(SIGINT, (void *)pthread_exit);
 
     KeyFile * keyFile = (KeyFile *)calloc(1, sizeof(KeyFile));
     keyFile->fd = fd;
