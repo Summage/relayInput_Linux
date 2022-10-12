@@ -35,6 +35,7 @@
 //   }
 //   return 0;
 // }
+#include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
 #include "getInput.h"
@@ -45,10 +46,9 @@ void key_callback(void * obj, int key, int type){
 }
 
 int main(){
-    keyRegister(NULL, &key_callback, "./key.log");
-    while(1)
-        sleep(1);
-    return 0;
+    pthread_t keyThread = keyRegister(NULL, &key_callback, "./build/key.log");
+    printf("start recoding!\n");
+    pthread_join(keyThread, NULL);
     // FILE * file = fopen("./a.log", "w");
     // int fd = open("./a.log", O_WRONLY | O_CREAT);
     // char buf[21];
@@ -56,5 +56,5 @@ int main(){
     // for(int i = 0; i++< 3; )
     //     write(fd, buf, 20);
     // // fclose(file);
-    // return 0;
+    return 0;
 }

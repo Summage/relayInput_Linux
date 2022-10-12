@@ -3,12 +3,8 @@ WORK_DIR  = $(shell pwd)
 BUILD_DIR = $(WORK_DIR)/build
 PROC := $(BUILD_DIR)/relayInput
 
-$(PROC):
-	echo $(CSRC)
-	
-
-build:
-	@mkdir -p $(dir $@)
+build: 
+	@mkdir -p $(BUILD_DIR)
 	@gcc -o $(PROC) $(CSRC) -lpthread
 
 run-env: $(PROC)
