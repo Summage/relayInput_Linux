@@ -7,9 +7,7 @@ build:
 	@mkdir -p $(BUILD_DIR)
 	@gcc -o $(PROC) $(CSRC) -lpthread
 
-run-env: $(PROC)
-
-run: run-env
+run: build
 	@sudo $(PROC)
 
 clean:

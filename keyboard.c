@@ -118,7 +118,7 @@ static void keyThread(void * argv){
 }
 
 
-pthread_t  keyRegister(void *obj, void (*callback)(void *, int, int), char * logFilePath){
+pthread_t  getInputRegister(void *obj, void (*callback)(void *, int, int), char * logFilePath){
     if(!callback)
         return -1;
     int fd = open(KEYBOARD_DEV_PATH, O_RDONLY);

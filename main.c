@@ -46,9 +46,9 @@ void key_callback(void * obj, int key, int type){
 }
 
 int main(){
-    pthread_t keyThread = keyRegister(NULL, &key_callback, "./build/key.log");
+    pthread_t getThread = getInputRegister(NULL, &key_callback, "./build/key.log");
     printf("start recoding!\n");
-    pthread_join(keyThread, NULL);
+    pthread_join(getThread, NULL);
     // FILE * file = fopen("./a.log", "w");
     // int fd = open("./a.log", O_WRONLY | O_CREAT);
     // char buf[21];
